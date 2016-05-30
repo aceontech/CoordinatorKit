@@ -26,6 +26,18 @@
 import XCTest
 @testable import CoordinatorKit
 
+private class ParentCoordinator : ComposableCoordinator {
+    lazy var childCoordinators = [Coordinator]()
+    
+    func start() {
+    }
+}
+
+private class ChildCoordinator : Coordinator {
+    func start() {
+    }
+}
+
 class CoordinatorKitTests: XCTestCase {
     
     override func setUp() {
@@ -38,16 +50,16 @@ class CoordinatorKitTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testRemove() {
+        let parent = ParentCoordinator()
+        let child = ChildCoordinator()
+        
+        parent.childCoordinators.append(child)
+        
+        XCTAssertTrue(parent.childCoordinators.count == 1)
+        XCTAssertTrue((parent.childCoordinators.last as? ChildCoordinator) != nil)
+        
+        parent.removeChildCoordinator(child)
+        XCTAssertTrue(parent.childCoordinators.count == 0)
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

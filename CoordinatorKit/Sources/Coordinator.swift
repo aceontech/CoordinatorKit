@@ -25,17 +25,26 @@
 import Foundation
 
 public protocol Coordinator: class {
-	func start()
+    func start()
 }
 
 public protocol ComposableCoordinator: Coordinator {
-	var childCoordinators: [Coordinator] { get }
+    var childCoordinators: [Coordinator] { get set }
 }
 
 extension ComposableCoordinator {
-	public func findChildCoordinator<T>(type: T.Type) -> T? {
-		return childCoordinators.filter({ (coordinator) -> Bool in
-			return coordinator is T
-		}).first as? T
-	}
+    public func findChildCoordinator<T>(type: T.Type) -> T? {
+        return childCoordinators.filter({ (coordinator) -> Bool in
+            return coordinator is T
+        }).first as? T
+    }
+    
+    public func removeChildCoordinator<T:Coordinator>(coordinator:T) -> T? {
+        if let  potentialIndex = childCoordinators.indexOf({ $0 is T }) {
+            let index = Int(potentialIndex)
+            childCoordinators.removeAtIndex(index)
+        }
+        
+        return coordinator
+    }
 }
