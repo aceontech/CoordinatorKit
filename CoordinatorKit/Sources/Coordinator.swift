@@ -24,8 +24,12 @@
 
 import Foundation
 
-public protocol Coordinator: class {
+public protocol Coordinator : class {
     func start()
+}
+
+protocol StoppableCoordinator : Coordinator {
+    func stop()
 }
 
 public protocol ComposableCoordinator: Coordinator {
@@ -33,18 +37,18 @@ public protocol ComposableCoordinator: Coordinator {
 }
 
 extension ComposableCoordinator {
-    public func findChildCoordinator<T>(_ type: T.Type) -> T? {
+    public func find<T>(childCoordinatorType: T.Type) -> T? {
         return childCoordinators.filter({ (coordinator) -> Bool in
             return coordinator is T
         }).first as? T
     }
     
-    public func removeChildCoordinator<T:Coordinator>(_ coordinator:T) -> T? {
+    public func remove<T:Coordinator>(childCoordinator:T) -> T? {
         if let  potentialIndex = childCoordinators.index(where: { $0 is T }) {
             let index = Int(potentialIndex)
             childCoordinators.remove(at: index)
         }
         
-        return coordinator
+        return childCoordinator
     }
 }

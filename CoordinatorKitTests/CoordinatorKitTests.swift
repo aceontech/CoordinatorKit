@@ -40,14 +40,14 @@ private class ChildCoordinator : Coordinator {
 
 class CoordinatorKitTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testFind() {
+        let parent = ParentCoordinator()
+        let child = ChildCoordinator()
+        
+        parent.childCoordinators.append(child)
+
+        let foundChild = parent.find(childCoordinatorType: ChildCoordinator.self)
+        XCTAssertFalse(foundChild == nil)
     }
     
     func testRemove() {
@@ -59,7 +59,7 @@ class CoordinatorKitTests: XCTestCase {
         XCTAssertTrue(parent.childCoordinators.count == 1)
         XCTAssertTrue((parent.childCoordinators.last as? ChildCoordinator) != nil)
         
-        parent.removeChildCoordinator(child)
+        let _ = parent.remove(childCoordinator: child)
         XCTAssertTrue(parent.childCoordinators.count == 0)
     }
 }
