@@ -28,7 +28,7 @@ public protocol Coordinator : class {
     func start()
 }
 
-protocol StoppableCoordinator : Coordinator {
+public protocol StoppableCoordinator : Coordinator {
     func stop()
 }
 
@@ -44,11 +44,9 @@ extension ComposableCoordinator {
     }
     
     public func remove<T:Coordinator>(childCoordinator:T) -> T? {
-        if let  potentialIndex = childCoordinators.index(where: { $0 is T }) {
-            let index = Int(potentialIndex)
+        if let index = childCoordinators.index(where: { $0 is T }) {
             childCoordinators.remove(at: index)
         }
-        
         return childCoordinator
     }
 }

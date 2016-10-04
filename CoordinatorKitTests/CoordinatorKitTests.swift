@@ -46,8 +46,12 @@ class CoordinatorKitTests: XCTestCase {
         
         parent.childCoordinators.append(child)
 
-        let foundChild = parent.find(childCoordinatorType: ChildCoordinator.self)
+        var foundChild = parent.find(childCoordinatorType: ChildCoordinator.self)
         XCTAssertFalse(foundChild == nil)
+        
+        let _ = parent.remove(childCoordinator: child)
+        foundChild = parent.find(childCoordinatorType: ChildCoordinator.self)
+        XCTAssertTrue(foundChild == nil)
     }
     
     func testRemove() {
