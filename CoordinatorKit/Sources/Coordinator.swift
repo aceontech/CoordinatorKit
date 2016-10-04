@@ -52,3 +52,17 @@ extension ComposableCoordinator {
         return childCoordinator
     }
 }
+
+// MARK: Deprecations
+extension ComposableCoordinator {
+    
+    @available(*, deprecated:2.0, obsoleted:3.0, message:"Use find<T>(childCoordinatorType:). Removal is scheduled for 3.0.")
+    public func findChildCoordinator<T>(_ type: T.Type) -> T? {
+        return find(childCoordinatorType: type)
+    }
+    
+    @available(*, deprecated:2.0, obsoleted:3.0, message:"Use remove<T>(childCoordinator:). Removal is scheduled for 3.0")
+    public func removeChildCoordinator<T:Coordinator>(_ coordinator:T) -> T? {
+        return remove(childCoordinator: coordinator)
+    }
+}
