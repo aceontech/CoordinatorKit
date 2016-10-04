@@ -33,16 +33,16 @@ public protocol ComposableCoordinator: Coordinator {
 }
 
 extension ComposableCoordinator {
-    public func findChildCoordinator<T>(type: T.Type) -> T? {
+    public func findChildCoordinator<T>(_ type: T.Type) -> T? {
         return childCoordinators.filter({ (coordinator) -> Bool in
             return coordinator is T
         }).first as? T
     }
     
-    public func removeChildCoordinator<T:Coordinator>(coordinator:T) -> T? {
-        if let  potentialIndex = childCoordinators.indexOf({ $0 is T }) {
+    public func removeChildCoordinator<T:Coordinator>(_ coordinator:T) -> T? {
+        if let  potentialIndex = childCoordinators.index(where: { $0 is T }) {
             let index = Int(potentialIndex)
-            childCoordinators.removeAtIndex(index)
+            childCoordinators.remove(at: index)
         }
         
         return coordinator
