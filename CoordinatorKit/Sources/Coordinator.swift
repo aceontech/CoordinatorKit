@@ -36,7 +36,7 @@ public protocol ComposableCoordinator: Coordinator {
     var childCoordinators: [Coordinator] { get set }
 }
 
-extension ComposableCoordinator {
+public extension ComposableCoordinator {
     public func find<T>(childCoordinatorType: T.Type) -> T? {
         return childCoordinators.filter({ (coordinator) -> Bool in
             return coordinator is T
@@ -52,14 +52,14 @@ extension ComposableCoordinator {
 }
 
 // MARK: Deprecations
-extension ComposableCoordinator {
+public extension ComposableCoordinator {
     
-    @available(*, deprecated:2.0, obsoleted:3.0, message:"Use find<T>(childCoordinatorType:). Removal is scheduled for 3.0.")
+    @available(*, deprecated:2.0, message:"Use find<T>(childCoordinatorType:). Removal is scheduled for 3.0.")
     public func findChildCoordinator<T>(_ type: T.Type) -> T? {
         return find(childCoordinatorType: type)
     }
     
-    @available(*, deprecated:2.0, obsoleted:3.0, message:"Use remove<T>(childCoordinator:). Removal is scheduled for 3.0")
+    @available(*, deprecated:2.0, message:"Use remove<T>(childCoordinator:). Removal is scheduled for 3.0")
     public func removeChildCoordinator<T:Coordinator>(_ coordinator:T) -> T? {
         return remove(childCoordinator: coordinator)
     }

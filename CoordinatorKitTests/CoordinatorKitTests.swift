@@ -66,4 +66,12 @@ class CoordinatorKitTests: XCTestCase {
         let _ = parent.remove(childCoordinator: child)
         XCTAssertTrue(parent.childCoordinators.count == 0)
     }
+    
+    func testDeprecations() {
+        let parent = ParentCoordinator()
+        let child = ChildCoordinator()
+
+        let _ = parent.removeChildCoordinator(child)
+        let _ = parent.findChildCoordinator(ChildCoordinator.self)
+    }
 }
