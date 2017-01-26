@@ -1,6 +1,12 @@
-# CoordinatorKit
-A collection of Swift helpers to facilitate the Coordinator pattern on iOS.
 
+<p align="center">
+  <img align="center" src="CoordinatorKitLogo.png?raw=true" height="150"/>
+</p>
+
+<h1 align="center">CoordinatorKit</h1>
+<p align="center">A collection of Swift helpers to facilitate the Coordinator pattern on iOS.</p>
+
+<br/>
 ## Installation
 
 ### Carthage
